@@ -9,19 +9,19 @@ public class Main {
 
     public static void main(String[] args) {
         openZip("E:/JavaProject/Games/savegames/zip.zip", "E:/JavaProject/Games/savegames/");
-        openProgress("E:/JavaProject/Games/savegames/save2.dat");
+        GameProgress gp = openProgress("E:/JavaProject/Games/savegames/save2.dat");
+        System.out.println(gp);
     }
 
-    private static void openProgress(String thePathOfTheFile) {
-        GameProgress gp = null;
+    private static GameProgress openProgress(String thePathOfTheFile) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(thePathOfTheFile))) {
-            gp = (GameProgress) ois.readObject();
+            return (GameProgress) ois.readObject();
         } catch (IOException ex) {
             ex.getMessage();
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-        System.out.println(gp);
+        return null;
     }
 
     private static void openZip(String thePathOfTheZip, String unpackingPath) {
